@@ -34,16 +34,21 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # 跳过可选的后安装脚本，避免 husky 在 CI 环境中的问题
+          npm ci --ignore-scripts
+          # 如果需要，可以单独运行构建相关的脚本
         env:
           NODE_ENV: production
           GITHUB_REPOSITORY: ${{ github.repository }}
+          CI: true
 
       - name: Build with Vite
         run: npm run build
         env:
           NODE_ENV: production
           GITHUB_REPOSITORY: ${{ github.repository }}
+          CI: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
