@@ -1,0 +1,86 @@
+.mainPage {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding-bottom: 120px; /* 为状态栏留出空间 */
+}
+
+.header {
+  text-align: center;
+  padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-xl);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.header p {
+  margin: 0;
+  font-size: var(--text-lg);
+  opacity: 0.9;
+}
+
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+.voiceSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.confirmCard,
+.resultCard {
+  margin: var(--spacing-lg) 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.confirmContent,
+.resultContent {
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+.confirmContent p {
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.confirmButtons {
+  gap: var(--spacing-md);
+}
+
+.resultContent h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--success-color);
+  font-size: var(--text-xl);
+}
+
+.resultContent p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+.resultData {
+  background: var(--bg-tertiary);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-base);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  overflow-x: auto;
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

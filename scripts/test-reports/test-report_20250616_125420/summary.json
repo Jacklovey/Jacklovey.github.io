@@ -1,0 +1,26 @@
+{
+  "reportDate": "20250616_125420",
+  "project": "Echo语音交互前端",
+  "results": {
+    "codeQuality": "PASSED",
+    "unitTests": "PASSED",
+    "integrationTests": "PASSED",
+    "e2eTests": "PASSED",
+    "performanceTests": "PASSED",
+    "accessibilityTests": "PASSED"
+  },
+  "overallStatus": "PASSED",
+  "artifacts": {
+    "unitCoverage": "unit-coverage/",
+    "e2eReports": "e2e-reports/",
+    "lighthouseReports": "lighthouse-reports/",
+    "logs": {
+      "lint": "lint.log",
+      "unitTests": "unit-tests.log",
+      "integrationTests": "integration-tests.log",
+      "e2eTests": "e2e-tests.log",
+      "performanceTests": "performance-tests.log",
+      "accessibilityTests": "accessibility-tests.log"
+    }
+  }
+}

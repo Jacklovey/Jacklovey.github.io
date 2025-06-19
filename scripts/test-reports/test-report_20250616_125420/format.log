@@ -1,0 +1,77 @@
+
+> solana-earphone-frontend@1.0.0 format:check
+> prettier --check src/**/*.{js,jsx,css,md}
+
+Checking formatting...
+[warn] src/__tests__/App.test.jsx
+[warn] src/App.jsx
+[warn] src/components/__tests__/accessibility.test.jsx
+[warn] src/components/common/__tests__/Button.test.jsx
+[warn] src/components/common/Button.jsx
+[warn] src/components/common/Button.module.css
+[warn] src/components/Layout/__tests__/AppLayout.test.jsx
+[warn] src/components/Layout/AppLayout.jsx
+[warn] src/components/Layout/AppLayout.module.css
+[warn] src/components/StatusBar/__tests__/StatusBar.test.jsx
+[warn] src/components/StatusBar/StatusBar.jsx
+[warn] src/components/StatusBar/StatusBar.module.css
+[warn] src/components/ThemeToggle.jsx
+[warn] src/components/VoiceRecorder/__tests__/VoiceRecorder.comprehensive.test.jsx
+[error] src/components/VoiceRecorder/__tests__/VoiceRecorder.test.jsx: SyntaxError: Unexpected token (349:3)
+[error]   347 |     fireEvent.click(button);
+[error]   348 |     expect(startRecording).toHaveBeenCalled();
+[error] > 349 |   });
+[error]       |   ^
+[error]   350 |
+[error]   351 |   it('should show recording state when recording', () => {
+[error]   352 |     useVoiceModule.useVoice.mockReturnValue({
+[warn] src/components/VoiceRecorder/VoiceRecorder.jsx
+[warn] src/components/VoiceRecorder/VoiceRecorder.module.css
+[warn] src/contexts/__tests__/AuthContext.test.jsx
+[warn] src/contexts/__tests__/SessionContext.comprehensive.test.jsx
+[warn] src/contexts/__tests__/ThemeContext.test.jsx
+[warn] src/contexts/AuthContext.jsx
+[warn] src/contexts/SessionContext.jsx
+[warn] src/contexts/ThemeContext.js
+[warn] src/hooks/__tests__/useSession.test.js
+[warn] src/hooks/__tests__/useTTS.comprehensive.test.js
+[error] src/hooks/__tests__/useTTS.test.js: SyntaxError: Missing semicolon. (334:8)
+[error]   332 |     expect(global.speechSynthesis.cancel).toHaveBeenCalled();
+[error]   333 |   });
+[error] > 334 | });port { render, act } from '@testing-library/react';
+[error]       |        ^
+[error]   335 | import { useTTS } from '../useTTS';
+[error]   336 | import React from 'react';
+[error]   337 |
+[warn] src/hooks/__tests__/useVoice.comprehensive.test.js
+[error] src/hooks/__tests__/useVoice.test.js: SyntaxError: Unexpected token (360:5)
+[error]   358 |   });
+[error]   359 | });
+[error] > 360 |     }));
+[error]       |     ^
+[error]   361 |
+[error]   362 |     const { result } = renderHook(() => useVoice());
+[error]   363 |     
+[warn] src/hooks/useTTS.js
+[warn] src/hooks/useVoice.js
+[warn] src/main.jsx
+[warn] src/mocks/browser.js
+[warn] src/mocks/handlers.js
+[warn] src/pages/MainPage/__tests__/MainPage.test.jsx
+[warn] src/pages/MainPage/MainPage.jsx
+[warn] src/pages/MainPage/MainPage.module.css
+[warn] src/pages/user/__tests__/LoginPage.test.jsx
+[warn] src/pages/user/LoginPage.jsx
+[warn] src/pages/user/LoginPage.module.css
+[warn] src/services/__tests__/apiClient.test.js
+[warn] src/services/apiClient.js
+[warn] src/styles/global.css
+[warn] src/styles/tokens.css
+[warn] src/tests/setup.js
+[warn] src/utils/__tests__/helpers.test.js
+[warn] src/utils/__tests__/intentClassifier.test.js
+[warn] src/utils/__tests__/validation.test.js
+[warn] src/utils/helpers.js
+[warn] src/utils/intentClassifier.js
+[warn] src/utils/validation.js
+[warn] Code style issues found in 47 files. Forgot to run Prettier?

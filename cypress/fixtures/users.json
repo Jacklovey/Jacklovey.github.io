@@ -1,0 +1,35 @@
+{
+  "regular": {
+    "username": "testuser",
+    "password": "password123",
+    "user_id": 1,
+    "role": "user",
+    "display_name": "测试用户",
+    "email": "testuser@example.com"
+  },
+  "developer": {
+    "username": "devuser",
+    "password": "devpass123",
+    "user_id": 2,
+    "role": "developer",
+    "display_name": "开发者用户",
+    "email": "devuser@example.com"
+  },
+  "admin": {
+    "username": "adminuser",
+    "password": "adminpass123",
+    "user_id": 3,
+    "role": "admin",
+    "display_name": "管理员用户",
+    "email": "admin@example.com"
+  },
+  "inactive": {
+    "username": "inactiveuser",
+    "password": "inactive123",
+    "user_id": 4,
+    "role": "user",
+    "status": "inactive",
+    "display_name": "停用用户",
+    "email": "inactive@example.com"
+  }
+}

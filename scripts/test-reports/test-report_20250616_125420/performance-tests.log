@@ -1,0 +1,21 @@
+
+> solana-earphone-frontend@1.0.0 lighthouse
+> lhci autorun
+
+sh: 1: lhci: not found
+
+> solana-earphone-frontend@1.0.0 test:performance
+> cypress run --spec="cypress/e2e/performance/*.cy.js"
+
+No version of Cypress is installed in: /home/nanchang/.cache/Cypress/12.17.4/Cypress
+
+Please reinstall Cypress by running: cypress install
+
+----------
+
+Cypress executable not found at: /home/nanchang/.cache/Cypress/12.17.4/Cypress/Cypress
+
+----------
+
+Platform: linux-x64 (Ubuntu - 22.04)
+Cypress Version: 12.17.4

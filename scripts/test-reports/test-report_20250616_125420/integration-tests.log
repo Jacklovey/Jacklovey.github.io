@@ -1,0 +1,12 @@
+
+> solana-earphone-frontend@1.0.0 test:integration
+> jest --testMatch="**/__tests__/**/*integration*.{js,jsx}"
+
+No tests found, exiting with code 1
+Run with `--passWithNoTests` to exit with code 0
+In /home/nanchang/SolanaEarphone
+  74 files checked.
+  testMatch: **/__tests__/**/*integration*.{js,jsx} - 0 matches
+  testPathIgnorePatterns: /node_modules/ - 74 matches
+  testRegex:  - 0 matches
+Pattern:  - 0 matches

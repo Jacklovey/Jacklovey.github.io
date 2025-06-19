@@ -1,0 +1,170 @@
+{
+  "tools": [
+    {
+      "tool_id": "maps_weather",
+      "name": "天气查询",
+      "type": "http",
+      "description": "查询指定城市的天气预报",
+      "endpoint": "https://api.openweathermap.org/data/2.5/weather",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "description": "城市名称"
+          }
+        },
+        "required": ["city"]
+      },
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "temperature": {"type": "number"},
+          "condition": {"type": "string"},
+          "humidity": {"type": "number"}
+        }
+      },
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "tool_id": "maps_distance",
+      "name": "距离查询",
+      "type": "http",
+      "description": "计算两个城市之间的距离",
+      "endpoint": "https://maps.googleapis.com/maps/api/distancematrix/json",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "origin": {
+            "type": "string",
+            "description": "起始地点"
+          },
+          "destination": {
+            "type": "string",
+            "description": "目标地点"
+          }
+        },
+        "required": ["origin", "destination"]
+      },
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "distance": {"type": "string"},
+          "duration": {"type": "string"}
+        }
+      },
+      "status": "active",
+      "created_at": "2024-01-02T00:00:00Z"
+    },
+    {
+      "tool_id": "crypto_wallet",
+      "name": "钱包查询",
+      "type": "mcp",
+      "description": "查询加密货币钱包余额",
+      "endpoint": "mcp://crypto-wallet-server",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "钱包地址"
+          },
+          "chain": {
+            "type": "string",
+            "enum": ["ethereum", "bitcoin", "solana"],
+            "description": "区块链网络"
+          }
+        },
+        "required": ["address", "chain"]
+      },
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "balance": {"type": "number"},
+          "currency": {"type": "string"},
+          "transactions": {"type": "array"}
+        }
+      },
+      "status": "active",
+      "created_at": "2024-01-03T00:00:00Z"
+    },
+    {
+      "tool_id": "news_search",
+      "name": "新闻搜索",
+      "type": "http",
+      "description": "搜索最新新闻资讯",
+      "endpoint": "https://newsapi.org/v2/everything",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "搜索关键词"
+          },
+          "language": {
+            "type": "string",
+            "default": "zh",
+            "description": "语言代码"
+          }
+        },
+        "required": ["query"]
+      },
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "articles": {"type": "array"},
+          "totalResults": {"type": "number"}
+        }
+      },
+      "status": "inactive",
+      "created_at": "2024-01-04T00:00:00Z"
+    }
+  ],
+  "developer_tools": [
+    {
+      "tool_id": "custom_weather",
+      "name": "自定义天气API",
+      "type": "http",
+      "description": "开发者自定义的天气查询工具",
+      "endpoint": "https://api.weather.example.com/v1/current",
+      "developer_id": 2,
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "location": {"type": "string"},
+          "units": {"type": "string", "enum": ["metric", "imperial"]}
+        }
+      },
+      "status": "active",
+      "usage_stats": {
+        "total_calls": 1250,
+        "success_rate": 98.5,
+        "avg_response_time": 145,
+        "last_24h_calls": 89
+      }
+    },
+    {
+      "tool_id": "custom_crypto",
+      "name": "加密货币查询",
+      "type": "mcp",
+      "description": "自定义加密货币数据查询",
+      "endpoint": "mcp://crypto.example.com",
+      "developer_id": 2,
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "symbol": {"type": "string"},
+          "currency": {"type": "string", "default": "USD"}
+        }
+      },
+      "status": "inactive",
+      "usage_stats": {
+        "total_calls": 543,
+        "success_rate": 95.2,
+        "avg_response_time": 267,
+        "last_24h_calls": 23
+      }
+    }
+  ]
+}

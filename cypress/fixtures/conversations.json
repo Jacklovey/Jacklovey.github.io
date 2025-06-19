@@ -1,0 +1,144 @@
+{
+  "conversations": [
+    {
+      "sessionId": "test-session-001",
+      "history": [
+        {
+          "timestamp": "2024-06-16T10:00:00Z",
+          "type": "user_input",
+          "content": "查询上海天气",
+          "transcript": "查询上海天气"
+        },
+        {
+          "timestamp": "2024-06-16T10:00:01Z",
+          "type": "intent_parsed",
+          "content": {
+            "type": "tool_use",
+            "toolId": "maps_weather",
+            "params": {"city": "上海"},
+            "confirmation": "您想查询上海的天气吗？"
+          }
+        },
+        {
+          "timestamp": "2024-06-16T10:00:05Z",
+          "type": "user_confirmation",
+          "content": "确认"
+        },
+        {
+          "timestamp": "2024-06-16T10:00:07Z",
+          "type": "tool_result",
+          "content": {
+            "toolId": "maps_weather",
+            "success": true,
+            "data": {
+              "tts_message": "上海今天多云，气温20到28度",
+              "raw_data": {
+                "temperature": 24,
+                "condition": "cloudy",
+                "humidity": 65
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "sessionId": "test-session-002",
+      "history": [
+        {
+          "timestamp": "2024-06-16T11:00:00Z",
+          "type": "user_input",
+          "content": "查询比特币价格",
+          "transcript": "查询比特币价格"
+        },
+        {
+          "timestamp": "2024-06-16T11:00:01Z",
+          "type": "intent_parsed",
+          "content": {
+            "type": "tool_use",
+            "toolId": "crypto_wallet",
+            "params": {"symbol": "BTC", "currency": "USD"},
+            "confirmation": "您想查询比特币的当前价格吗？"
+          }
+        },
+        {
+          "timestamp": "2024-06-16T11:00:03Z",
+          "type": "user_confirmation",
+          "content": "取消"
+        }
+      ]
+    }
+  ],
+  "intents": [
+    {
+      "input": "查询上海天气",
+      "output": {
+        "type": "tool_use",
+        "toolId": "maps_weather",
+        "params": {"city": "上海"},
+        "confidence": 0.95
+      }
+    },
+    {
+      "input": "北京到上海多远",
+      "output": {
+        "type": "tool_use",
+        "toolId": "maps_distance",
+        "params": {"origin": "北京", "destination": "上海"},
+        "confidence": 0.92
+      }
+    },
+    {
+      "input": "查询我的钱包余额",
+      "output": {
+        "type": "tool_use",
+        "toolId": "crypto_wallet",
+        "params": {"address": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa", "chain": "bitcoin"},
+        "confidence": 0.88
+      }
+    },
+    {
+      "input": "今天新闻",
+      "output": {
+        "type": "tool_use",
+        "toolId": "news_search",
+        "params": {"query": "今日热点", "language": "zh"},
+        "confidence": 0.85
+      }
+    },
+    {
+      "input": "你好",
+      "output": {
+        "type": "direct_response",
+        "message": "您好！我是您的AI语音助手，可以帮您查询天气、距离、加密货币信息等。请说出您的需求。",
+        "confidence": 0.99
+      }
+    },
+    {
+      "input": "谢谢",
+      "output": {
+        "type": "direct_response",
+        "message": "不客气！如果还有其他需要帮助的地方，请随时告诉我。",
+        "confidence": 0.98
+      }
+    }
+  ],
+  "error_scenarios": [
+    {
+      "input": "查询火星天气",
+      "output": {
+        "type": "error",
+        "error_code": "UNSUPPORTED_LOCATION",
+        "message": "抱歉，我无法查询火星的天气信息。请提供地球上的城市名称。"
+      }
+    },
+    {
+      "input": "随机无意义的文本xyzabc",
+      "output": {
+        "type": "error",
+        "error_code": "INTENT_NOT_UNDERSTOOD",
+        "message": "抱歉，我没有理解您的请求。请重新描述您需要什么帮助。"
+      }
+    }
+  ]
+}
