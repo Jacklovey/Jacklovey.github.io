@@ -5,11 +5,8 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   // GitHub Pages 配置
-  // 如果是 username.github.io 仓库，使用 '/'
-  // 如果是项目仓库，使用 '/repository-name/'
-  const base = process.env.NODE_ENV === 'production' 
-    ? (process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/` : '/')
-    : '/'
+  // 对于 username.github.io 仓库，始终使用 '/'
+  const base = '/'
 
   return {
     plugins: [react()],
