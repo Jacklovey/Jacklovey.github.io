@@ -5,23 +5,31 @@
 
 // 环境变量处理，支持 GitHub Pages 部署
 const getApiBaseUrl = () => {
-  // 生产环境 - GitHub Pages
+  console.log('🔍 检测环境配置...');
+  console.log('- window.location.hostname:', typeof window !== 'undefined' ? window.location.hostname : 'undefined');
+  console.log('- process.env.VITE_API_URL:', typeof process !== 'undefined' && process.env ? process.env.VITE_API_URL : 'undefined');
+  console.log('- window.APP_CONFIG:', typeof window !== 'undefined' ? window.APP_CONFIG : 'undefined');
+  
+  // 🎯 优先检测 GitHub Pages 环境 - 最高优先级
   if (typeof window !== 'undefined' && window.location.hostname.includes('github.io')) {
-    // 在 GitHub Pages 上，可以使用 Mock API 或外部 API
-    return window.APP_CONFIG?.API_URL || 'https://your-api-server.com';
+    console.log('✅ 检测到GitHub Pages环境，使用Mock API');
+    return 'https://github-pages-mock-api';
   }
   
-  // 开发环境
+  // 开发环境变量
   if (typeof process !== 'undefined' && process.env && process.env.VITE_API_URL) {
+    console.log('✅ 使用环境变量VITE_API_URL:', process.env.VITE_API_URL);
     return process.env.VITE_API_URL;
   }
   
-  // 在浏览器环境中，检查全局配置
+  // 全局配置 (仅在非GitHub Pages环境)
   if (typeof window !== 'undefined' && window.APP_CONFIG && window.APP_CONFIG.API_URL) {
+    console.log('✅ 使用全局配置APP_CONFIG.API_URL:', window.APP_CONFIG.API_URL);
     return window.APP_CONFIG.API_URL;
   }
   
   // 默认开发环境地址
+  console.log('✅ 使用默认本地地址');
   return 'http://localhost:8001';
 };
 
@@ -50,8 +58,74 @@ class ApiClient {
     return token ? { Authorization: `Bearer ${token}` } : {};
   }
 
+  // GitHub Pages Mock API 响应
+  getMockResponse(endpoint, options) {
+    console.log('🎭 使用Mock API响应:', endpoint);
+    
+    // 模拟延迟
+    const delay = Math.random() * 500 + 200;
+    
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        switch (endpoint) {
+          case '/v1/api/auth/token':
+            resolve({
+              access_token: 'mock_token_' + Date.now(),
+              token_type: 'bearer',
+              expires_in: 3600,
+              user: {
+                id: 1,
+                username: 'demo_user',
+                email: 'demo@example.com'
+              }
+            });
+            break;
+
+          case '/v1/api/user/profile':
+            resolve({
+              id: 1,
+              username: 'demo_user',
+              email: 'demo@example.com',
+              created_at: '2024-01-01T00:00:00Z'
+            });
+            break;
+
+          case '/v1/api/voice/upload':
+            resolve({
+              message: 'Voice uploaded successfully (Mock)',
+              transcription: '这是一个模拟的语音转录结果',
+              confidence: 0.95
+            });
+            break;
+
+          case '/v1/api/tools/list':
+            resolve({
+              tools: [
+                { id: 1, name: 'Mock Tool 1', description: '模拟工具1' },
+                { id: 2, name: 'Mock Tool 2', description: '模拟工具2' }
+              ]
+            });
+            break;
+
+          default:
+            resolve({
+              message: 'Mock API response',
+              data: {},
+              timestamp: new Date().toISOString()
+            });
+        }
+      }, delay);
+    });
+  }
+
   // 通用请求方法
   async request(endpoint, options = {}) {
+    // 检查是否在GitHub Pages环境下使用Mock API
+    if (this.baseURL === 'https://github-pages-mock-api') {
+      console.log('🎭 GitHub Pages环境，使用Mock API');
+      return this.getMockResponse(endpoint, options);
+    }
+
     const url = `${this.baseURL}${endpoint}`;
     console.log('🔗 API请求 URL:', url);
     console.log('🔧 请求配置:', options);
