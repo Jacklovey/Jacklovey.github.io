@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Pages Mock API 测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .test-button { background: #007bff; color: white; border: none; padding: 10px 20px; margin: 10px 5px; border-radius: 4px; cursor: pointer; }
+        .test-button:hover { background: #0056b3; }
+        .log-area { background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; margin: 10px 0; border-radius: 4px; max-height: 400px; overflow-y: auto; font-family: monospace; font-size: 12px; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .info { color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 GitHub Pages Mock API 调试工具</h1>
+        
+        <div class="info">
+            <h3>环境检测:</h3>
+            <p><strong>当前域名:</strong> <span id="hostname"></span></p>
+            <p><strong>是否GitHub Pages:</strong> <span id="isGitHubPages"></span></p>
+            <p><strong>API Base URL:</strong> <span id="apiBaseUrl"></span></p>
+        </div>
+
+        <div>
+            <h3>测试操作:</h3>
+            <button class="test-button" onclick="testMockLogin()">🔐 测试Mock登录</button>
+            <button class="test-button" onclick="testEnvironmentDetection()">🔍 重新检测环境</button>
+            <button class="test-button" onclick="clearLogs()">🧹 清除日志</button>
+        </div>
+
+        <div>
+            <h3>📊 调试日志:</h3>
+            <div id="logArea" class="log-area"></div>
+        </div>
+    </div>
+
+    <script>
+        // Mock API 实现
+        function getApiBaseUrl() {
+            log('🔍 开始检测API环境配置...', 'info');
+            log('- window.location.hostname: ' + window.location.hostname, 'info');
+            log('- 是否包含github.io: ' + window.location.hostname.includes('github.io'), 'info');
+            
+            if (window.location.hostname.includes('github.io')) {
+                log('✅ 检测到GitHub Pages环境，使用Mock API', 'success');
+                return 'https://github-pages-mock-api';
+            }
+            
+            log('ℹ️ 非GitHub Pages环境，使用默认配置', 'info');
+            return 'http://localhost:8001';
+        }
+
+        function mockApiRequest(endpoint, options = {}) {
+            return new Promise((resolve) => {
+                log(`🎭 Mock API 请求: ${endpoint}`, 'info');
+                
+                // 模拟网络延迟
+                const delay = Math.random() * 500 + 200;
+                
+                setTimeout(() => {
+                    switch (endpoint) {
+                        case '/v1/api/auth/token':
+                            const mockResponse = {
+                                access_token: 'mock_token_' + Date.now(),
+                                token_type: 'bearer',
+                                expires_in: 3600,
+                                user: {
+                                    id: 1,
+                                    username: 'demo_user',
+                                    email: 'demo@example.com'
+                                }
+                            };
+                            log('✅ Mock登录成功: ' + JSON.stringify(mockResponse, null, 2), 'success');
+                            resolve(mockResponse);
+                            break;
+                        default:
+                            const defaultResponse = {
+                                message: 'Mock API response',
+                                endpoint: endpoint,
+                                timestamp: new Date().toISOString()
+                            };
+                            log('✅ Mock响应: ' + JSON.stringify(defaultResponse, null, 2), 'success');
+                            resolve(defaultResponse);
+                    }
+                }, delay);
+            });
+        }
+
+        function log(message, type = 'info') {
+            const logArea = document.getElementById('logArea');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            logEntry.innerHTML = `[${timestamp}] ${message}`;
+            logArea.appendChild(logEntry);
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+
+        function clearLogs() {
+            document.getElementById('logArea').innerHTML = '';
+        }
+
+        function testEnvironmentDetection() {
+            const hostname = window.location.hostname;
+            const isGitHubPages = hostname.includes('github.io');
+            const apiBaseUrl = getApiBaseUrl();
+
+            document.getElementById('hostname').textContent = hostname;
+            document.getElementById('isGitHubPages').textContent = isGitHubPages ? '是' : '否';
+            document.getElementById('apiBaseUrl').textContent = apiBaseUrl;
+
+            log('🔄 环境检测完成', 'info');
+        }
+
+        async function testMockLogin() {
+            try {
+                log('🚀 开始测试Mock登录...', 'info');
+                
+                const apiBaseUrl = getApiBaseUrl();
+                if (apiBaseUrl === 'https://github-pages-mock-api') {
+                    log('✅ 使用Mock API进行登录测试', 'info');
+                    const result = await mockApiRequest('/v1/api/auth/token', {
+                        method: 'POST',
+                        body: JSON.stringify({ username: 'testuser', password: 'test' })
+                    });
+                    
+                    log('🎉 Mock登录测试成功！', 'success');
+                } else {
+                    log('❌ 不在GitHub Pages环境，无法测试Mock API', 'error');
+                }
+            } catch (error) {
+                log('❌ 测试失败: ' + error.message, 'error');
+            }
+        }
+
+        // 页面加载时自动检测环境
+        window.onload = function() {
+            testEnvironmentDetection();
+            log('📱 调试工具已加载', 'info');
+        };
+    </script>
+</body>
+</html>
