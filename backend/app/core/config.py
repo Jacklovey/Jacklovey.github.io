@@ -32,6 +32,9 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3002",
         "http://localhost:3003", # 备用端口
         "http://127.0.0.1:3003",
+        "https://jacklovey.github.io", # GitHub Pages
+        "https://*.ngrok.io", # ngrok 隧道
+        "https://*.ngrok-free.app", # 新版 ngrok
     ]
     
     class Config:
